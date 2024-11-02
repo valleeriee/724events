@@ -20,11 +20,15 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  
+  const selectData = (!type
+      ? data?.events
+      : data?.events.filter((event) => event.type === type));
+
+  console.log(selectData)
 
   const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events.filter((event) => event.type === type)) || []
+    (selectData) || []
   ).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
@@ -38,8 +42,15 @@ const EventList = () => {
     setCurrentPage(1);
     setType(evtType);
   };
+
+  const nbEvents = (!type
+    ? data?.events.length || 0
+    : data?.events.filter((event) => event.type === type).length || 0);
+
+  console.log(`Math.floor : ${Math.floor(nbEvents / PER_PAGE)}`);
+  console.log(`Math.ceil : ${Math.ceil(nbEvents / PER_PAGE)}`);
   
-  const pageNumber = Math.floor((data?.events.filter((event) => event.type === type).length || 0) / PER_PAGE) + 1;
+  const pageNumber = Math.ceil(nbEvents / PER_PAGE);
   const typeList = new Set(data?.events.map((event) => event.type));
   return (
     <>
