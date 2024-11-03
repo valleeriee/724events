@@ -25,8 +25,6 @@ const EventList = () => {
       ? data?.events
       : data?.events.filter((event) => event.type === type));
 
-  console.log(selectData)
-
   const filteredEvents = (
     (selectData) || []
   ).filter((event, index) => {
@@ -46,9 +44,6 @@ const EventList = () => {
   const nbEvents = (!type
     ? data?.events.length || 0
     : data?.events.filter((event) => event.type === type).length || 0);
-
-  console.log(`Math.floor : ${Math.floor(nbEvents / PER_PAGE)}`);
-  console.log(`Math.ceil : ${Math.ceil(nbEvents / PER_PAGE)}`);
   
   const pageNumber = Math.ceil(nbEvents / PER_PAGE);
   const typeList = new Set(data?.events.map((event) => event.type));
