@@ -20,6 +20,7 @@ export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
   const [last, setLast] = useState(null);
+
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
@@ -29,8 +30,8 @@ export const DataProvider = ({ children }) => {
   }, []);
   useEffect(() => {
     if (data) {
-      const lastIndex = data.events.length;
-      setLast(data.events[lastIndex - 1]);
+      setLast(data.events.reduce((lastest, current) => new Date(current.date) > new Date(lastest.date) ? current : lastest));
+      console.log(last);
       return;
     }
     getData();
