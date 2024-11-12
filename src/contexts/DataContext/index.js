@@ -30,8 +30,7 @@ export const DataProvider = ({ children }) => {
   }, []);
   useEffect(() => {
     if (data) {
-      setLast(data.events.reduce((lastest, current) => new Date(current.date) > new Date(lastest.date) ? current : lastest));
-      console.log(last);
+      setLast(data.events?.reduce((latest, current) => new Date(current.date) > new Date(latest.date) ? current : latest));
       return;
     }
     getData();

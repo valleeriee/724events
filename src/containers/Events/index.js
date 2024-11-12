@@ -7,7 +7,7 @@ import ModalEvent from "../ModalEvent";
 
 import "./style.css";
 
-const PER_PAGE = 3;
+const PER_PAGE = 9;
 
 let keyEvent = 0;
 
@@ -41,9 +41,7 @@ const EventList = () => {
     setType(evtType);
   };
 
-  const nbEvents = (!type
-    ? data?.events.length || 0
-    : data?.events.filter((event) => event.type === type).length || 0);
+  const nbEvents = selectData?.length || 0;
   
   const pageNumber = Math.ceil(nbEvents / PER_PAGE);
   const typeList = new Set(data?.events.map((event) => event.type));
